@@ -35,4 +35,4 @@
 ### 3.0.2 at 27 March 2023
 
 - Fixed issue with stripping slashes from `SSO[ROOT]` setting on the SSO client side.
-- 
+- Updated behavior: After success authentication on the SSO gateway side redirect to LOGIN_REDIRECT_URL setting if not provided any other.
