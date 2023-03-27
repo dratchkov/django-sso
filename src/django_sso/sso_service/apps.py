@@ -28,6 +28,8 @@ class ServiceConfig(AppConfig):
             if variable not in settings.SSO:
                 raise ImproperlyConfigured(f"SSO[{variable}] {_('settings variable not set')}")
 
+        settings.SSO['ROOT'] = settings.SSO['ROOT'].rstrip('/')
+
         sso_event_acceptor_class = settings.SSO.get('EVENT_ACCEPTOR_CLASS', '').strip()
 
         if sso_event_acceptor_class:

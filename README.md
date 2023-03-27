@@ -65,6 +65,12 @@ SSO = {
     # named as "Send additional data to subordinated services"
     'ADDITIONAL_FIELDS': ('additiona_fields', 'from_user_model', 'and_related_models'),
 }
+
+
+# Affects to the "welcome" url (after successful authentication) when
+# user logged in but don't have url to redirect. Optional.
+# Compatible logic with Django.
+LOGIN_REDIRECT_URL = '/default/url/'
 ```
 
 Then server side is ready to use!
@@ -656,6 +662,12 @@ For all requests to `sso/event/` subordinated service must be return next reponc
 - [ ] Integrate with Sentry
 - [ ] Multilanguage docs
 - [ ] Library provided mechanism for management user permissions.
+
+
+
+# Notes
+
+- All new features from PR/ISSUES will be pushed to `next` branch first, then after merge to master will be published to the [PyPI](https://pypi.org/project/django-sso/).
 
 
 

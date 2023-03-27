@@ -22,7 +22,7 @@ def set_sso_authorization_request_used(sso_token):
     For sso_service side. Makes SSO request as used for authentication procedure (not available for next authentications)
     """
     try:
-        result = requests.post(settings.SSO['ROOT'].rstrip('/') + '/sso/make_used/', {
+        result = requests.post(settings.SSO['ROOT'] + '/sso/make_used/', {
             'token': settings.SSO['TOKEN'],
             'authentication_token': sso_token
         })

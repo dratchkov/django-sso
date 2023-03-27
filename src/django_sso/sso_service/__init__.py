@@ -13,7 +13,7 @@ def request_sso_authorization_request(request) -> str:
     Необходим для дальнейшей авторизации пользователя на шлюзе авторизации
     """
     try:
-        result = requests.post(settings.SSO['ROOT'].rstrip('/') + '/sso/obtain/', {
+        result = requests.post(settings.SSO['ROOT'] + '/sso/obtain/', {
             "token": settings.SSO['TOKEN'],
             "next_url": request.GET.get('next', '/'),
         })
@@ -36,7 +36,7 @@ def get_sso_authorization_request(sso_token: str) -> dict:
     Get SSO token information from server to check authorization
     """
     try:
-        result = requests.post(settings.SSO['ROOT'].rstrip('/') + '/sso/get/', {
+        result = requests.post(settings.SSO['ROOT'] + '/sso/get/', {
             'token': settings.SSO['TOKEN'],
             'authentication_token': sso_token
         })
@@ -61,7 +61,7 @@ def request_deauthentication(user):
     user_model = get_user_model()
 
     try:
-        result = requests.post(settings.SSO['ROOT'].rstrip('/') + '/sso/deauthenticate/', {
+        result = requests.post(settings.SSO['ROOT'] + '/sso/deauthenticate/', {
             'token': settings.SSO['TOKEN'],
             'user_identy': getattr(user, user_model.USERNAME_FIELD)
         })

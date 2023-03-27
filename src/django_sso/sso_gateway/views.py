@@ -4,6 +4,7 @@ from builtins import super
 from typing import Optional
 
 import django.contrib.auth.views
+from django.conf import settings
 from django.contrib.auth import logout, get_user_model
 from django.http import JsonResponse
 from django.shortcuts import redirect
@@ -39,15 +40,17 @@ class LoginView(django.contrib.auth.views.LoginView):
 				used=False,
 			).first()
 
+		LOGIN_REDIRECT_URL = getattr(settings, 'LOGIN_REDIRECT_URL', reverse_lazy('welcome'))
+
 		if not auth_request or not auth_request.next_url:
-			return reverse_lazy('welcome')
+			return LOGIN_REDIRECT_URL
 
 		try:
 			auth_request.activate(self.request.user)
 		except SSOException as e:
 			logging.critical(f'Failed to emit login event to subordinated service {auth_request.service}: {e}')
 
-			return reverse_lazy('welcome') + '?fallback=true'
+			return LOGIN_REDIRECT_URL + '?fallback=true'
 
 		return f'{auth_request.service.base_url}/sso/accept/'
 
