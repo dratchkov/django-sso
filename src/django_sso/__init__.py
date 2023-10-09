@@ -20,7 +20,7 @@ def deauthenticate_user(user_identy):
         for session_key in Session.objects.values_list('session_key', flat=True).all():
             session = import_module(settings.SESSION_ENGINE).SessionStore(session_key)
 
-            if '_auth_user_id' in session and int(session['_auth_user_id']) == user.id:
+            if '_auth_user_id' in session and session['_auth_user_id'] == user.id:
                 del session['_auth_user_id']
 
                 if '_auth_user_backend' in session:
