@@ -121,6 +121,15 @@ SSO = {
 }
 ```
 
+4) Authentication backend
+
+If you are using multiple authentication backends you need to specify which one should be used by this package. The specified backend must already be listed in ```AUTHENTICATION_BACKENDS```
+
+```python
+SSO = {
+	'AUTHENTICATION_BACKEND': '.....'
+}
+```
 
 
 ## Default behavior summary (In case, when the SSO gateway and subordinated service implemented with the Django SSO)
