@@ -58,4 +58,20 @@ class ServiceConfig(AppConfig):
                     'Can\'t import SSO event acceptor class from SSO[EVENT_ACCEPTOR_CLASS] variable'
                 ))
 
+        if len(settings.AUTHENTICATION_BACKENDS) > 1:
+            auth_backend_class = settings.SSO.get('AUTHENTICATION_BACKEND')
+
+            if auth_backend_class is None:
+                raise ImproperlyConfigured(_(
+                    'You have multiple backends configured in AUTHENTICATION_BACKENDS. You need to defined in SSO(AUTHENTICATION_BACKEND) the class you want to use'
+                ))
+
+            try:
+                next(x for x in settings.AUTHENTICATION_BACKENDS if x == auth_backend_class)
+            except StopIteration:
+                raise ImproperlyConfigured(_(
+                    'You have defined a class in SSO(AUTHENTICATION_BACKEND) that\'s not in AUTHENTICATION_BACKENDS'
+                ))
+
+
         from . import signals

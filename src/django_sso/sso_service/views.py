@@ -76,7 +76,7 @@ def authorize_from_sso_view(request: WSGIRequest):
 
         set_sso_authorization_request_used(request.session.get('token'))
 
-        login(request, user)
+        login(request, user, backend=settings.SSO.get('AUTHENTICATION_BACKEND'))
 
         if authorization_request['next_url']:
             return redirect(authorization_request['next_url'])
